@@ -29,16 +29,16 @@ var mydata2 = 0;
 window.addEventListener('load', global)
 var mydata = 0;
 async function global(x) {
-   // console.log(x)
+
     if(typeof x === 'string' && x !== ''){
         mydata = await fetch(`https://corona.lmao.ninja/v2/countries/${x}`)
         .then(res => res.json())
          //console.log(mydata.countryInfo)
-        count77.innerHTML = `${mydata.countryInfo.iso3} ` +`<img src="${mydata.countryInfo.flag}" width="20px">` + ' is in ' + mydata.continent
-        ztable(mydata)
-    } 
+        // count77.innerHTML = `${mydata.countryInfo.iso3} ` +`<img src="${mydata.countryInfo.flag}" width="20px">` + ' is in ' + mydata.continent
+        // ztable(mydata)
+    }
 
-    else{ 
+    else{
         mydata = await fetch(`https://corona.lmao.ninja/v2/all?yesterday=`)
     .then(res => res.json()) 
 
@@ -64,18 +64,6 @@ async function global(x) {
         count7 = new CountUp('population', 0, mydata.population)
         count7.start();
 
-        count11 = new CountUp('confi_per', 0, mydata.casesPerOneMillion)
-        count11.start();
-        count22 = new CountUp('active_per', 0, mydata.activePerOneMillion)
-        count22.start();
-        count33 = new CountUp('death_per', 0, mydata.deathsPerOneMillion)
-        count33.start();
-        count44 = new CountUp('critical_per', 0, mydata.criticalPerOneMillion)
-        count44.start();
-        count55 = new CountUp('rec_per', 0, mydata.recoveredPerOneMillion)
-        count55.start();
-        count66 = new CountUp('test_per', 0, mydata.testsPerOneMillion)
-        count66.start();
 
         pie(count1.endVal,count2.endVal,count3.endVal,count4.endVal,count5.endVal)
 }
@@ -121,7 +109,6 @@ async function global(x) {
                             t1.innerHTML = zzz.map(xy => {  
                                 //console.log(xy) 
                                     return ` <tr >
-                                            <th scope="row" style="background-color: rgb(213, 213, 213);"><img src="${xy.countryInfo.flag}" width="20px"></th>
                                             <td style="background-color: rgb(213, 213, 213);">${xy.country}</td>
                                             <td id="t1" style="color: #b54029;">${xy.cases}</td>
                                             <td id="t2" style="color: #458dc4;">${xy.active}</td>
@@ -130,7 +117,6 @@ async function global(x) {
                                             <td id="t5" style="color: #408f69;">${xy.recovered}</td>
                                             <td id="t6" style="color: rgba(107, 107, 107, 1);">${xy.tests}</td>
                                             <td id="t7" style="color: #408f69;">${xy.population}</td>
-                                            <td id="t8" style="color: rgba(116, 56, 255, 1);">${xy.continent}</td>
                                         </tr> 
                                         `
                                 }).join('')        
@@ -138,7 +124,6 @@ async function global(x) {
                         else{
                         // console.log(zzz)
                             t1.innerHTML = ` <tr >
-                                            <th scope="row" style="background-color: rgb(213, 213, 213);"><img src="${zzz.countryInfo.flag}" width="20px"></th>
                                             <td style="background-color: rgb(213, 213, 213);">${zzz.country}</td>
                                             <td id="t1" style="color: #b54029;">${zzz.cases}</td>
                                             <td id="t2" style="color: #458dc4;">${zzz.active}</td>
@@ -147,7 +132,6 @@ async function global(x) {
                                             <td id="t5" style="color: #408f69;">${zzz.recovered}</td>
                                             <td id="t6" style="color: rgba(107, 107, 107, 1);">${zzz.tests}</td>
                                             <td id="t7" style="color: #408f69;">${zzz.population}</td>
-                                            <td id="t8" style="color: rgba(116, 56, 255, 1);">${zzz.continent}</td>
                                         </tr> 
                                         `     
                         }
