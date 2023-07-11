@@ -1,19 +1,5 @@
 
 var ar1 = []
-let count1 = 0
-let count2 = 0
-let count3 = 0
-let count4 = 0
-let count5 = 0
-let count6 = 0
-let count7 = 0
-
-let count11 = 0
-let count22 = 0
-let count33 = 0
-let count44 = 0
-let count55 = 0
-let count66 = 0
 var count77 = document.getElementById('continent')
 
 var num1 = 0
@@ -59,10 +45,6 @@ async function global(x) {
         count4.start();
         count5 = new CountUp('total_rec', 0, mydata.recovered)
         count5.start();
-        count6 = new CountUp('tests', 0, mydata.tests)
-        count6.start();
-        count7 = new CountUp('population', 0, mydata.population)
-        count7.start();
 
 
         pie(count1.endVal,count2.endVal,count3.endVal,count4.endVal,count5.endVal)
@@ -269,127 +251,4 @@ async function global(x) {
      
                         
     
-                        async function cases() { 
-                         var jk =0;
-                         var x =0 ;
-                         var zseries = [
-                             {name: 'Europe',data: []},
-                             {name: 'Australia-Oceania',data: []}, 
-                             {name: 'North America',data: []}, 
-                             {name: 'South America',data: [] }, 
-                             {name: 'Asia',data: []}
-                             ];
-                        
-                         await fetch(`https://corona.lmao.ninja/v2/countries?yesterday=&sort=`)
-                         .then(res => res.json())
-                         .then(data => { 
-                             //console.log(data)
-                     for(var i=0; i<data.length; i++){
-                        //console.log(data[i].continent + ' ' + data[i].country)
-                        for(var j=0; j<5; j++){
-                        
-                         //console.log(zseries[j].name)
-                         if(zseries[j].name.localeCompare(data[i].continent) == 0){
-                             //console.log( zseries[j].data)
-                             //console.log(data[i].country)
-                             zseries[j].data.push( {
-                                 name: data[i].country,
-                                 value: data[i].oneCasePerPeople
-                             } )
-                             console.log( zseries[j].data)
-                         }
-                        }
-                     } 
-                     
-                           Highcharts.chart('map3', {
-                                 chart: {
-                                     type: 'packedbubble',
-                                     height: '100%'
-                                 },
-                                 title: {
-                                     text: 'ONE CASE PER PEOPLE AROUND THE WORLD',
-                                     align: 'left'
-                                 },
-                                 tooltip: {
-                                     useHTML: true,
-                                     pointFormat: '<b>{point.name}:</b> {point.value} ppl'
-                                 },
-                                 plotOptions: {
-                                     packedbubble: {
-                                         minSize: '20%',
-                                         maxSize: '100%',
-                                         zMin: 0,
-                                         zMax: 1000,
-                                         layoutAlgorithm: {
-                                             gravitationalConstant: 0.05,
-                                             splitSeries: true,
-                                             seriesInteraction: false,
-                                             dragBetweenSeries: true,
-                                             parentNodeLimit: true
-                                         },
-                                         dataLabels: {
-                                             enabled: true,
-                                             format: '{point.name}',
-                                             filter: {
-                                                 property: 'y',
-                                                 operator: '>',
-                                                 value: 250
-                                             },
-                                             style: {
-                                                 color: 'black',
-                                                 textOutline: 'none',
-                                                 fontWeight: 'normal'
-                                             }
-                                         }
-                                     }
-                                 },
-                                 series: zseries
-                         }) 
-                          })
-                         }
-                         cases()
-    
-
-                           async function alldata(ggg){
-                        console.log(ggg)
-                        var jk = ggg
-                var mydata = []
-                        await fetch('https://corona.lmao.ninja/v2/continents?yesterday=true&sort=')
-                        .then(res => res.json())
-                        .then(data => {
-                            for(var i=0; i<=5; i++){
-                                mydata.push([
-                                data[i].continent,
-                                Number(data[i][jk])
-                            ])
-                            } console.log(mydata)
-                            Highcharts.chart('map4', {
-                                chart: {
-                                    type: 'pie',
-                                    options3d: {
-                                        enabled: true,
-                                        alpha: 45
-                                    }
-                                },
-                                title: {
-                                    text: jk + ' case in continent',
-                                    align: 'left'
-                                },
-                                subtitle: {
-                                    text: 'This graph shows ' + jk + ' case of each continent',
-                                    align: 'left'
-                                },
-                                plotOptions: {
-                                    pie: {
-                                        innerSize: 100,
-                                        depth: 45
-                                    }
-                                },
-                                series: [{
-                                    name: jk,
-                                    data: mydata
-                                }]
-                            });
-                        })
-                    } 
-                  
+                      
