@@ -23,7 +23,7 @@
 <script src="script.js"></script>
 <body onload="getData()">
     <body >
-        <div class="container-fluid bg-dark">
+        <div class="container-fluid">
             <nav class="navbar mt-5 py-2" data-bs-theme="dark">
                 <div class="container-fluid d-flex flex-row justify-content-center align-items-center">
                    <a class="navbar-brand text-white" href="#"> <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMkdfG5p-A9BgBo7KpDE33qVab88BPrhf3TA&usqp=CAU" style="height: 60px;" alt="">
@@ -146,7 +146,7 @@
 <script>
  
   
-    fetch('https://disease.sh/v3/covid-19/countries/china?strict=true')
+    fetch('https://disease.sh/v3/covid-19/countries/Ethiopia?strict=true')
 .then(response => response.json())
 .then(data => {
     console.log(data)
