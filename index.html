@@ -2,323 +2,459 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.min.js" integrity="sha384-heAjqF+bCxXpCWLa6Zhcp4fu20XoNIA98ecBC1YkdXhszjoejr5y9Q77hIrv8R9i" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <title>Document</title>
+    <title>Fetch covid data</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 </head>
-<style>
-   body{
-    background-color: black;
-   }
-
-</style>
-<script src="script.js"></script>
-<body onload="getData()">
-    <body >
-        <div class="container-fluid">
-            <nav class="navbar mt-5 py-2" data-bs-theme="dark">
-                <div class="container-fluid d-flex flex-row justify-content-center align-items-center">
-                   <a class="navbar-brand text-white" href="#"> <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMkdfG5p-A9BgBo7KpDE33qVab88BPrhf3TA&usqp=CAU" style="height: 60px;" alt="">
-                    Covid-19 DashBoard
-                </a>
-                   <img>
-                  
-             
-                </div>
-              </nav>
-        </div>
-   
-     <br>
-
-     <div class="container-fluid">
-
-        <div class="container-fluid" style="background-color: white; padding: 25px; text-align: center;">
-            <h5>Data Analysis Of Covid-19 In Each Country</h5>
-
-        </div>
-        <div class="text-light mt-4" >Choose Country:
-            <select class="form-select form-select-sm" id="thelist" style="width: fit-content;" onChange="update()">
-                 <option></option>
-            </select> 
-        </div>
-     <!-- table starts here -->
-
-     <div class="container-fluid">
-        <div class="py-5 row d-flex flex-row justify-content-center align-items-center">
-            <div class="col-lg-3 col-sm-6" style="width: 14rem; ">
-                <div class="card" style="text-align: center;">
-                    <div class="card-body">
-                        <h6 class="card-title text-center" style="font-size: 15px; color: whi;">Confirmed Cases</h6>
-                        <div>
-                        <span style="color: #b54029; font-size: 20px;" id="confirmed_num">
-                             0
-                            </span> 
-                        </div>
-                        
-                        <span class="card-text" style="color: #b54029; font-weight: 700; ">
-
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-sm-6" style="width: 14rem">
-                <div class="card" style="text-align: center;">
-                    <div class="card-body">
-                        <h6 class="card-title text-center">Active Cases</h6>
-                        <div> 
-                            <span style="color: #458dc4; font-size: 20px;" id="active_case">
-                                 0 </span> </div>
-                                 <span class="card-text" style="color: #458dc4; font-weight: 700; ">
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-sm-6" style="width: 14rem">
-                <div class="card" style=" text-align: center;">
-                    <div class="card-body">
-                        <h6 class="card-title text-center">Total Deaths</h6>
-                        <div> 
-                            <span style="color: rgb(125, 125, 125); font-size: 20px;" id="death">
-                                 0 </span> </div>
-                                 <span class="card-text" style="color: rgb(125,125,125); font-weight: 700; ">
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-sm-6" style="width: 14rem">
-                <div class="card" style="text-align: center;">
-                    <div class="card-body">
-                        <h6 class="card-title text-center">Critical Cases</h6>
-                        <div>
-                             <span  style="color: rgb(235, 167, 30); font-size: 20px;" id="critical">
-                                 0 </span> </div>
-                                 <span class="card-text" style="color: rgb(235, 167, 30); font-weight: 700; ">
-
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-sm-6" style="width: 14rem">
-                <div class="card" style="text-align: center;">
-                    <div class="card-body">
-                        <h6 class="card-title text-center">Total Recoverd</h6>
-                        <div> 
-                            <span style="color: #408f69; font-size: 20px;" id="total_rec"> 
-                               0 </span> </div>
-                               <span class="card-text" style="color: #408f69; font-weight: 600; ">
-                    </div>
-                </div>
-            </div>
-
-        </div>
-     </div>
-
-     <!-- ends -->
-     <div class="container-fluid">
-
-    <div class="row d-flex flex-row justify-content-lg-start align-items-lg-start">
-        <div id="mychart5" class="col-md-6 col-lg-6">
-            
-        </div>
-        <div= class="col-lg-6 col-md-6"><h3 class="text-white mt-5 py-5" >This Chart Shows A particular Country cases of covid-19</h3></div=>
-    </div>
-    <div id="mychart7"></div>
-    <div class="row">
-        <div id="mychart6" class="col-md-6"></div>
-    <div id="mychart8" class="col-md-6"></div>
-</div
-     </div>
-     </div>
-
-<script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/modules/variable-pie.js"></script>
+<body class="text-white" style="background: black;">
+  
+    <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script src="https://code.highcharts.com/modules/export-data.js"></script>
 <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-<script>
- 
+
+
+<header class="border-bottom">
+    <nav class="navbar navbar-expand navbar-dark py-3">
+        <div class="container-fluid">
+          <a class="navbar-brand text-white" href="#">Covid-19</a>
+          <div class="collapse navbar-collapse d-flex" id="collapsibleNavId">
+              <ul class="navbar-nav me-auto mt-2 mt-lg-0 d-flex flex-row justify-content-center align-items-center">
+                  <li class="nav-item">
+                      <a class="nav-link active text-white" href="#" aria-current="page">Home <span class="visually-hidden">(current)</span></a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link text-white" href="#">About</a>
+                  </li>
   
-    fetch('https://disease.sh/v3/covid-19/countries/Ethiopia?strict=true')
-.then(response => response.json())
-.then(data => {
-    console.log(data)
-    draw2(data);
-})
-  let chartDiv5 = `
-<figure class="highcharts-figure">
-    <div id="containers"></div>
-    <p class="highcharts-description">
-        
-    </p>
-</figure>`;
-document.getElementById("mychart5").innerHTML = chartDiv5;
-async function draw2(info2){
-    Highcharts.chart('containers', {
-        chart: {
-            type: 'variablepie'
-        },
-        title: {
-            text: 'In Ethiopia',
-            align: 'center'
-        },
-        tooltip: {
-            headerFormat: '',
-            pointFormat: '<span style="color:{point.color}">\u25CF</span> <b> {point.name}</b><br/>' +
-                'cases (m): <b>{point.y}</b><br/>'
-                
-        },
-        series: [{
-            minPointSize: 10,
-            innerSize: '20%',
-            zMin: 0,
-            name: 'countries',
-            data: [{
-                name: 'Total Cases',
-                y: parseFloat(info2.cases),
-                z: 92
-            }, {
-                name: 'Number of Death',
-                y: parseFloat(info2.deaths),
-                z: 90
-            }, {
-                name: 'Number of recovered',
-                y: parseFloat(info2.recovered),
-                z: 80
-            }, {
-                name: 'Number of active',
-                y: parseFloat(info2.active),
-                z: 90
-            }]
-        }]
-    });
-}
-</script>
+              </ul>
+          </div>
+    </div>
+  </nav>
+</header>
+
+<!-- Main -->
+<main>
+    <div class="container-fluid p-5">
+        <div class="row py-2" id="Overall">
+            <h3 class="text-center text-primary">Total Cases Of Covid-19 In The US</h3>
+            <figure class="highcharts-figure py-2">
+                <div id="Total"></div>
+                <p class="highcharts-description">
+
+                </p>
+                </figure>
+        </div>
+        <div class="row py-4">
+            <div class="col-lg-12">
+                <h3 class="text-primary">States that Has The Most Covid Cases</h4>
+                   
+            </div>
+            <div class="row d-flex py-2">
+                <div class="col-lg-4">
+                    <figure class="highcharts-figure py-2">
+                        <div id="state1"></div>
+                        <p class="highcharts-description">
+
+                        </p>
+                        </figure>
+                </div>
+                <div class="col-lg-4">
+                    <figure class="highcharts-figure py-2">
+                        <div id="state2"></div>
+                        <p class="highcharts-description">
+
+                        </p>
+                        </figure>
+                </div>
+                <div class="col-lg-4">
+                    <figure class="highcharts-figure py-2">
+                        <div id="state3"></div>
+                        <p class="highcharts-description">
+
+                        </p>
+                        </figure>
+                </div>
+            </div>
+        </div>
+
+        <!-- search -->
+        <div class="row">
+            <!-- <div class="col-lg-12">
+                    <h3 class="text-primary">Search By State Names</h4>
 
 
-<script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
-<script src="https://code.highcharts.com/modules/export-data.js"></script>
-<script src="https://code.highcharts.com/modules/accessibility.js"></script>   
+            </div> -->
+            <div class="col-lg-6 d-flex">
+                <div class="form-control">
+                    <h3 class="form-check text-primary py-3">Search By State Names</h4>
+                    <input type="text" class="form-control my-1" name="search" id="search" placeholder="example: california, texas.....">
+                    <button class="form-control my-3" id="searchButton">Search</button>
+                </div>
+            </div>
+
+            <div class="col-lg-6" id="show">
+                <figure class="highcharts-figure py-2">
+                    <div id="searchedState"></div>
+                    <p class="highcharts-description">
+
+                    </p>
+                    </figure>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-4">
+                <select class="col-3 text-white" id="states">
+                </select>
+            </div>
+        </div>
+        <!-- <div class="row">
+            <div class="col-lg-6">
 
 
-  <script>
-    fetch('https://api.covid19api.com/summary')
-    .then(response => response.json())
-    .then(data => {
-      // Format the data as needed
-      const countries = data.Countries.map(country => country.Country);
-      const cases = data.Countries.map(country => country.TotalConfirmed);
-      
-      // Create a Chart.js chart
-      const ctx = document.getElementById('myChart').getContext('2d');
-      const myChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-          labels: countries,
-          datasets: [{
-            label: 'Cases',
-            data: cases,
-            backgroundColor: 'yellow',
-            borderColor: 'red',
-            borderWidth: 1
-          }]
-        },
-        options: {
-          scales: {
-            yAxes: [{
-              ticks: {
-                beginAtZero: true
-              }
-            }]
-          }
-        }
-      });
-    })
-    .catch(error => console.error(error));
-    var ctx = document.getElementById('chart').getContext('2d');
-    var chart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: [],
-            datasets: [{
-                label: 'total Confirmed Cases',
-                data: [],
-                backgroundColor: 'red'
-            }, {
-                label: 'total Recovered',
-                data: [],
-                backgroundColor: 'black'
-            }, {
-                label: 'total Deaths',
-                data: [],
-                backgroundColor: 'purple'
-            }]
-        },
-        options: {
-            title: {
-                display: true,
-                text: 'Covid19API Chart'
-            }
-        }
-    });
+            </div>
+            <div class="col-lg-6"></div>
+        </div> -->
+    </div>
+</main>
 
-    function getData() {
-        var country = $('#country').val();
-        $.ajax({
-            url: 'https://api.covid19api.com/total/country/' + country,
-            success: function(data) {
-                chart.data.labels = [];
-                chart.data.datasets[0].data = [];
-                chart.data.datasets[1].data = [];
-                chart.data.datasets[2].data = [];
+<!-- footer -->
+<footer class="bottom-0 border-top" style="background: black;">
+    <div class="container py-3">
+        <div class="row">
+            <div class="col-12 d-lg-flex flex-lg-row flex-md-column justify-content-center align-items-center text-white">
+                <a href="#" class="nav-link px-2">Conact Us </a>
+                <a href="#" class="nav-link px-2">Privacy and policy</a>
+                 <a class="nav-link px-1" href="https://covidtracking.com/data/api/version-2" style="cursor: pointer;">Visit CovidTracking.com</a> Copyright © 2023
+            </div>
+        </div>
+    </div>
+</footer>
 
-                data.forEach(function(d) {
-                    chart.data.labels.push(d.Date);
-                    chart.data.datasets[0].data.push(d.Confirmed);
-                    chart.data.datasets[1].data.push(d.Recovered);
-                    chart.data.datasets[2].data.push(d.Deaths);
-                });
+<script>
 
-                chart.update();
-            }
-        });
+    
+window.onload = async () => {
+  var StateList = document.getElementById('states');
+
+  try {
+    const CovidResponse = await fetch('https://api.covidtracking.com/v2/us/daily.json');
+    if (!CovidResponse.ok) {
+      throw new Error('Error fetching COVID data');
+    }
+    const stateResponse = await fetch('https://api.covidtracking.com/v2/states.json');
+    if (!stateResponse.ok) {
+      throw new Error('Error fetching state data');
     }
 
+    const CovidCases = await CovidResponse.json();
+    const stateNames = await stateResponse.json();
+
+    for (let i = 0; i < stateNames.data.length; i++) {
+      const option = document.createElement("option");
+      option.value = stateNames.data[i].name;
+      option.textContent = stateNames.data[i].name;
+      StateList.append(option);
+    }
+
+    const handleSelectChange = (event) => {
+      const stateName = event.target.value;
+      const stateData = CovidCases.data.find((data) => data.state === stateName);
+
+      if (!stateData) {
+        console.log("No data found for state " + stateName);
+        alert("No data found for state " + stateName);
+        return;
+      }
+
+      const chart = new Highcharts.Chart({
+        chart: {
+          renderTo: 'searchedState',
+          type: 'column',
+        },
+        title: {
+          text: `Current COVID-19 Cases in ${stateName}`,
+        },
+        xAxis: {
+          categories: ['Hospitalized', 'Total Death', 'In ICU'],
+        },
+        yAxis: {
+          title: {
+            text: 'Number of Cases',
+          },
+        },
+        series: [
+          {
+            name: 'Currently Hospitalized Cases',
+            data: [stateData.hospitalized.currently.value],
+          },
+          {
+            name: 'Currently In ICU',
+            data: [stateData.hospitalized.in_icu.currently.value],
+          },
+          {
+            name: 'Total Deaths',
+            data: [stateData.death.total.value],
+          },
+        ],
+      });
+    };
+
+    StateList.addEventListener("change", handleSelectChange);
+  } catch (error) {
+    console.log(error);
+  }
+  getStatesData();
+  state1();
+  state2();
+  state3();
+};
+
+
+async function state1(){
+    try {
+        const response = await fetch('https://api.covidtracking.com/v2/states/ca/daily.json');
+    const stateStats = await response.json();
+
+
+const chart = new Highcharts.Chart({
+      chart: {
+        renderTo: 'state1',
+        type: 'column',
+      },
+      title: {
+        text: `Number of Cases in California`,
+      },
+      xAxis: {
+        categories: ['Hospitalized', 'Total Death', 'In ICU'],
+      },
+      yAxis: {
+        title: {
+          text: '',
+        },
+      },
+      series: [
+        {
+          name:  'Currently Hospitalized Cases',
+          data: [stateStats.data[0].outcomes.hospitalized.currently.value],
+        },
+        {
+          name: 'Currently In ICU',
+          data: [stateStats.data[0].outcomes.hospitalized.in_icu.currently.value],
+        },
+        {
+          name: 'Total Deaths',
+          data: [stateStats.data[0].outcomes.death.total.value],
+        }
+      ],
+    })
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+async function state2(){
+    const response = await fetch('https://api.covidtracking.com/v2/states/tx/daily.json');
+    const stateStats = await response.json();
+    const chart2 = new Highcharts.Chart({
+      chart: {
+        renderTo: 'state2',
+        type: 'column',
+      },
+      title: {
+        text: `Number of Cases in Texas`,
+      },
+      xAxis: {
+        categories: ['Hospitalized', 'Total Death', 'In ICU'],
+      },
+      yAxis: {
+        title: {
+          text: '',
+        },
+      },
+      series: [
+        {
+          name:  'Currently Hospitalized Cases',
+          data: [stateStats.data[0].outcomes.hospitalized.currently.value],
+        },
+        {
+          name: 'Currently In ICU',
+          data: [stateStats.data[0].outcomes.hospitalized.in_icu.currently.value],
+        },
+        {
+          name: 'Total Deaths',
+          data: [stateStats.data[0].outcomes.death.total.value],
+        }
+      ],
+    })
+}
+
+async function state3(){
+    const response = await fetch('https://api.covidtracking.com/v2/states/al/daily.json');
+    const stateStats = await response.json();
+    const chart2 = new Highcharts.Chart({
+      chart: {
+        renderTo: 'state3',
+        type: 'column',
+      },
+      title: {
+        text: `Number of Cases in Alabama`,
+      },
+      xAxis: {
+        categories: ['Hospitalized', 'Total Death', 'In ICU'],
+      },
+      yAxis: {
+        title: {
+          text: '',
+        },
+      },
+      series: [
+        {
+          name:  'Currently Hospitalized Cases',
+          data: [stateStats.data[0].outcomes.hospitalized.currently.value],
+        },
+        {
+          name: 'Currently In ICU',
+          data: [stateStats.data[0].outcomes.hospitalized.in_icu.currently.value],
+        },
+        {
+          name: 'Total Deaths',
+          data: [stateStats.data[0].outcomes.death.total.value],
+        }
+      ],
+    })
+}
+
+    async function getStatesData(){
+
+        try{
+        const response = await fetch('https://api.covidtracking.com/v2/us/daily.json');
+        const stateStats = await response.json();
+
+const chart = new Highcharts.Chart({
+      chart: {
+        renderTo: 'Total',
+        type: 'column',
+      },
+      title: {
+        text: ``,
+      },
+      xAxis: {
+        categories: ['Hospitalized', 'Total Death', 'In ICU'],
+      },
+      yAxis: {
+        title: {
+          text: 'Number of Cases ',
+        },
+      },
+      series: [
+        {
+          name:  'Currently Hospitalized Cases',
+          data: [stateStats.data[0].outcomes.hospitalized.currently.value],
+        },
+        {
+          name: 'Currently In ICU',
+          data: [stateStats.data[0].outcomes.hospitalized.in_icu.currently.value],
+        },
+        {
+          name: 'Total Deaths',
+          data: [stateStats.data[0].outcomes.death.total.value],
+        }
+      ],
+    })
+
+    }
+    catch(error){
+        console.log("Error Fetching Data")
+    }
+   }
+
+
+
+// const getTotalCasesByState = async () => {
+//     const stateCodes = ['al', 'ak', 'az', 'ar', 'ca', 'co', 'ct', 'de', 'dc', 'fl', 'ga', 'hi', 'id', 'il', 'in', 'ia', 'ks', 'ky', 'la', 'me',
+//         'md', 'ma', 'mi', 'mn', 'ms', 'mo', 'mt', 'ne', 'nv', 'nh', 'nj', 'nm', 'ny', 'nc', 'nd', 'oh', 'ok', 'or', 'pa', 'ri',
+//         'sc', 'sd', 'tn', 'tx', 'ut', 'vt', 'va', 'wa', 'wv', 'wi', 'wy'];
+
+//     // get total cases by for each state using the state codes
+//     const totalCasesByState = await Promise.all(stateCodes.map(async (stateCode) => {
+
+//         const response = await fetch(`https://api.covidtracking.com/v2/states/${stateCode}/daily.json`);
+//         if (!response.ok) {
+//             console.log('Error retrieving data');
+//             return;
+//         }
+//         const stateData = await response.json();
+//         return {
+//             value: stateData.data[0].cases.total.value,
+//             code: stateCode.toUpperCase()
+//         }
+//     }));
+
+
+//     console.log(totalCasesByState);
+    
+//     const topology = await fetch(
+//         'https://code.highcharts.com/mapdata/countries/us/us-all.topo.json'
+//     ).then(response => response.json());
+
+
+//     // Instantiate the map
+// Highcharts.mapChart('container', {
+//     chart: {
+//         map: topology,
+//         height: 700
+//     },
+//     title: {
+//         text: 'Total Cases by State'
+//     },
+//     exporting: {
+//         // 720
+//         sourceWidth: 1440,
+//         // 500
+//         sourceHeight: 1000
+//     },
+//     legend: {
+//         layout: 'horizontal',
+//         borderWidth: 0,
+//         backgroundColor: 'rgba(255,255,255,0.85)',
+//         floating: true,
+//         verticalAlign: 'top',
+//         y: 25
+//     },
+//     mapNavigation: {
+//         enabled: true
+//     },
+//     colorAxis: {
+//         // blue for low values, red for high values
+//         minColor: '#006bff',
+//         maxColor: '#FF0000'
+
+
+//     },
+//     series: [{
+//         animation: {
+//             duration: 1000
+//         },
+//         data: totalCasesByState,
+//         joinBy: ['postal-code', 'code'],
+//         dataLabels: {
+//             enabled: true,
+//             color: '#FFFFFF',
+//             format: '{point.code}'
+//         },
+//         name: 'Total Cases',
+//         tooltip: {
+//             pointFormat: '{point.code}: {point.value}'
+//         }
+//     }]
+// });
+// }
+// getTotalCasesByState();
 </script>
-
-
-<script src="https://code.highcharts.com/maps/highmaps.js"></script>
-<script src="https://code.highcharts.com/maps/modules/data.js"></script>
-<script src="https://code.highcharts.com/maps/modules/exporting.js"></script>
-<script src="https://code.highcharts.com/maps/modules/offline-exporting.js"></script>
-<script src="https://code.highcharts.com/maps/modules/accessibility.js"></script>
-<script src="https://code.highcharts.com/modules/variable-pie.js"></script>
-<script src="https://code.highcharts.com/modules/export-data.js"></script>
-<script src="https://code.highcharts.com/modules/sankey.js"></script>
-<script src="https://code.highcharts.com/modules/arc-diagram.js"></script>
-<script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/highcharts-more.js"></script>   
-<script src="https://code.highcharts.com/highcharts-3d.js"></script>
-
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
-    integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
-    crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.min.js"
-    integrity="sha384-heAjqF+bCxXpCWLa6Zhcp4fu20XoNIA98ecBC1YkdXhszjoejr5y9Q77hIrv8R9i"
-    crossorigin="anonymous"></script>
-
-    <script
-    src="https://cdn.jsdelivr.net/npm/countup@1.8.2/countUp.js"
-  ></script>
-<!-- later -->
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>  
-  <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
-  <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
-  <script src="covid.js"></script>
-
+<!-- <script src="main.js"></script> -->
 </body>
 </html>
