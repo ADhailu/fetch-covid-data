@@ -18,7 +18,7 @@
 <header class="border-bottom">
     <nav class="navbar navbar-expand navbar-dark py-3">
         <div class="container-fluid">
-          <a class="navbar-brand text-white" href="#">Covid-19</a>
+          <a class="navbar-brand text-white" href="#"> <img src="https://www.medicalgraphics.de/wp-content/uploads/2023/01/coronavirus-black-background.jpg" style="height:55px"> Covid-19  </a>
           <div class="collapse navbar-collapse d-flex" id="collapsibleNavId">
               <ul class="navbar-nav me-auto mt-2 mt-lg-0 d-flex flex-row justify-content-center align-items-center">
                   <li class="nav-item">
@@ -87,10 +87,12 @@
 
             </div> -->
             <div class="col-lg-6 d-flex">
-                <div class="form-control">
-                    <h3 class="form-check text-primary py-3">Search By State Names</h4>
-                    <input type="text" class="form-control my-1" name="search" id="search" placeholder="example: california, texas.....">
-                    <button class="form-control my-3" id="searchButton">Search</button>
+                <div class="form-control bg-transparent">
+                    <h3 class="text-primary py-3">Search By State Names</h4>
+                    <!-- <input type="text" class="form-control my-1" name="search" id="search" placeholder="example: california, texas....."> -->
+                    <select class="col-3 mx-5 text-white form-check" id="states">
+                    </select>
+                    <!-- <button class="form-control my-3" id="searchButton">Search</button> -->
                 </div>
             </div>
 
@@ -104,12 +106,13 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-4">
+        <!-- <div class="row">
+            <div class="col-6">
+                <h5 class="mt-2">Select State</h3>
                 <select class="col-3 text-white" id="states">
                 </select>
             </div>
-        </div>
+        </div> -->
         <!-- <div class="row">
             <div class="col-lg-6">
 
